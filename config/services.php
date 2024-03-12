@@ -31,4 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'passport' => [
+        'token' => env('PASSPORT_SECRET_TOKEN_KEY'),
+    ],
+
 ];
