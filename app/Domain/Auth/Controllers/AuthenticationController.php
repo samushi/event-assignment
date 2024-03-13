@@ -6,11 +6,10 @@ namespace App\Domain\Auth\Controllers;
 
 
 use App\Domain\Auth\Actions\LoginAction;
-use App\Domain\Auth\Requests\ForgetPasswordRequest;
+use App\Domain\Auth\Actions\LogoutAction;
+use App\Domain\Auth\Actions\RegisterAction;
 use App\Domain\Auth\Requests\LoginRequest;
 use App\Domain\Auth\Requests\RegisterRequest;
-use App\Domain\Auth\Requests\ResetPasswordRequest;
-use App\Domain\Auth\Requests\VerifyPasswordTokenRequest;
 use App\Support\ApiControllers;
 use Exception;
 use Illuminate\Http\Request;
@@ -59,15 +58,20 @@ final class AuthenticationController extends ApiControllers
      * @throws NotIntegerException
      * @throws Exception
      */
-//    public function register(RegisterRequest $request): ?Response
-//    {
-//        return rescue(
-//            fn () => $this->successWithMessage(
-//                __('Verifying your account by email (:email), one step closer to using our services.', ['email' => optional(RegisterUser::run($request->validated()))->email])
-//            ),
-//            fn (Throwable $throwable) => $this->somethingWrong($throwable->getCode())
-//        );
-//    }
+    public function register(RegisterRequest $request): ?Response
+    {
+        return rescue(
+            function () use ($request) {
+                $user = RegisterAction::run($request->validated());
+                return $this->successWithMessage(
+                    __('You have successfully registered, :first_name :last_name.', [
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name
+                ]));
+            },
+            fn (Throwable $throwable) => $this->somethingWrong($throwable->getCode())
+        );
+    }
 
     /**
      * Logout user
@@ -80,78 +84,11 @@ final class AuthenticationController extends ApiControllers
      * @throws NotIntegerException
      * @throws Exception
      */
-//    public function logout(Request $request): Response
-//    {
-//        return rescue(
-//            fn () => $this->successWithMessage(LogoutUser::run($request->user())),
-//            fn (Throwable $throwable) => $this->somethingWrong($throwable->getCode())
-//        );
-//    }
-
-    /**
-     * Forget password
-     *
-     * @throws ArrayWithMixedKeysException
-     * @throws ConfigurationNotFoundException
-     * @throws IncompatibleTypeException
-     * @throws InvalidTypeException
-     * @throws MissingConfigurationKeyException
-     * @throws NotIntegerException
-     * @throws Exception
-     */
-//    public function forget(ForgetPasswordRequest $request): Response
-//    {
-//        return rescue(
-//            fn () => $this->successWithMessage(ForgetPassword::run($request->validated('email'))),
-//            fn (Throwable $throwable) => $throwable instanceof ValidationException ?
-//                $this->unAuthorized($throwable->getMessage()) :
-//                $this->errorWithMessage($throwable->getMessage())
-//        );
-//    }
-
-    /**
-     * Password reset
-     *
-     * @throws ArrayWithMixedKeysException
-     * @throws ConfigurationNotFoundException
-     * @throws IncompatibleTypeException
-     * @throws InvalidTypeException
-     * @throws MissingConfigurationKeyException
-     * @throws NotIntegerException
-     * @throws Exception
-     */
-//    public function reset(ResetPasswordRequest $request): Response
-//    {
-//        return rescue(
-//            fn () => $this->successWithMessage(ResetPassword::run($request->only('email', 'password', 'password_confirmation', 'token'))),
-//            fn (Throwable $throwable) => $throwable instanceof ValidationException ?
-//                $this->unAuthorized($throwable->getMessage()) :
-//                $this->errorWithMessage($throwable->getMessage())
-//        );
-//    }
-
-    /**
-     * Verify password token
-     * @param VerifyPasswordTokenRequest $request
-     * @return Response
-     * @throws ArrayWithMixedKeysException
-     * @throws ConfigurationNotFoundException
-     * @throws IncompatibleTypeException
-     * @throws InvalidTypeException
-     * @throws MissingConfigurationKeyException
-     * @throws NotIntegerException
-     * @throws Exception
-     */
-//    public function verify(VerifyPasswordTokenRequest $request): Response
-//    {
-//        return rescue(
-//            fn () => $this->success([
-//                'is_valid_token' => VerifyPasswordToken::run($request->validated('email'), $request->validated('token')),
-//                'email' => $request->validated('email')
-//            ]),
-//            fn (Throwable $throwable) => $throwable instanceof ValidationException ?
-//                $this->unAuthorized($throwable->getMessage()) :
-//                $this->errorWithMessage($throwable->getMessage())
-//        );
-//    }
+    public function logout(Request $request): Response
+    {
+        return rescue(
+            fn () => $this->successWithMessage(LogoutAction::run($request->user())),
+            fn (Throwable $throwable) => $this->somethingWrong($throwable->getCode())
+        );
+    }
 }

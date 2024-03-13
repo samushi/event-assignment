@@ -33,6 +33,8 @@ abstract class Repositories
 
     /**
      * Create new model
+     * @param array $data
+     * @return Model
      */
     public function create(array $data): Model
     {

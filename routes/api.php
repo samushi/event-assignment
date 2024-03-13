@@ -19,5 +19,12 @@ Route::prefix('auth')
     ->as('auth:')
     ->group(fn () => require app_path('../Domain/Auth/api.php'));
 
+// Event Domain
+Route::middleware(['auth:api'])->group(function (): void {
+    Route::prefix('event')
+        ->as('event:')
+        ->group(fn () => require_once app_path('../Domain/Event/api.php'));
+});
+
 // Healthcheck routes
 Route::get('/ping', fn () => response()->json(['pong' => true]));

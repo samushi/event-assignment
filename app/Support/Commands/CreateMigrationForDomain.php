@@ -32,7 +32,6 @@ final class CreateMigrationForDomain extends Command
     private function callMigration(string $domain, string $table): void
     {
         $path = domainMigrationPathCreate($domain);
-
         if($path) {
             $this->call("make:migration", [
                 "name" => $table,

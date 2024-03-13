@@ -3,8 +3,10 @@
 namespace App\Domain\Auth\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Domain\Event\Models\Event;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -44,4 +46,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relationship to events.
+     * @return BelongsToMany
+     */
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class, 'event_user', 'user_id', 'event_id')->withTimestamps();
+    }
 }
