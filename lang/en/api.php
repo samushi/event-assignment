@@ -18,6 +18,7 @@ return [
     'invalid_credentials' => 'Invalid email or password.',
     'invalid_validation' => 'Validation Invalid',
     'logout' => 'Successfully logout',
+    'not_found' => 'Not Found',
     'verified' => [
         'success' => 'Your email has been verified',
         'fail' => 'Invalid token',

@@ -34,7 +34,15 @@ final class UserRepository extends Repositories
      */
     public function findAllByEmail(array $emails): ?Collection
     {
-        return $this->getModel()->whereIn('email', $emails)->get();
+        return $this->query()->whereIn('email', $emails)->get();
+    }
+
+    /**
+     * Find all by id's
+     */
+    public function findAllById(array $ids): ?Collection
+    {
+        return $this->query()->whereIn('id', $ids)->get();
     }
 
     /**

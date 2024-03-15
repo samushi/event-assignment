@@ -4,6 +4,7 @@ namespace App\Domain\Event\Repositories;
 
 use App\Domain\Auth\Models\User;
 use App\Domain\Event\Dto\CreateEventDto;
+use App\Domain\Event\Dto\UpdateRequestEventDto;
 use App\Domain\Event\Models\Event;
 use App\Support\Repositories;
 use Illuminate\Database\Eloquent\Model;
@@ -29,11 +30,37 @@ class EventRepository extends Repositories
     }
 
     /**
+     * Update Event
+     */
+    public function updateEvent(Event $event, UpdateRequestEventDto $dto, array $prediction): Event|Model
+    {
+        $attributes = [
+            'title' => $dto->title ?? $event->title,
+            'event_date' => $dto->eventDate ?? $event->event_date,
+            'location' => $dto->location ?? $event->location,
+            'description' => $dto->description ?? $event->description,
+            'weather_prediction' => $prediction,
+        ];
+
+        $event->update($attributes);
+
+        return $event->refresh();
+    }
+
+    /**
      * Save Event invitees
      */
     public function saveEventInvitees(Event $event, array $invitees): void
     {
         $event->invitees()->attach($invitees);
+    }
+
+    /**
+     * Update Event Invites
+     */
+    public function updateEventInvitees(Event $event, array $invitees): void
+    {
+        $event->invitees()->sync($invitees);
     }
 
     /**

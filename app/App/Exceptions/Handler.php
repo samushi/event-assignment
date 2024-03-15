@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use App\Support\Enums\ApiCode;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Lang;
@@ -68,6 +69,12 @@ class Handler extends ExceptionHandler
         if ($e instanceof AuthorizationException && $request->expectsJson()) {
             return $this->unAuthorize();
         }
+
+        // When model not found
+        if ($e instanceof ModelNotFoundException) {
+            return $this->notFound();
+        }
+
         // Force to application/json rendering API Calls
         if ($request->is('api/v1/*')) {
             $request->headers->set('Accept', 'application/json');
@@ -89,6 +96,24 @@ class Handler extends ExceptionHandler
         return ResponseBuilder::asError(ApiCode::SOMETHING_WENT_WRONG->value)
             ->withMessage(Lang::get('api.something_went_wrong'))
             ->withHttpCode(Response::HTTP_UNAUTHORIZED)
+            ->build();
+    }
+
+    /**
+     * Show Json response when not found
+     *
+     * @throws ArrayWithMixedKeysException
+     * @throws ConfigurationNotFoundException
+     * @throws IncompatibleTypeException
+     * @throws InvalidTypeException
+     * @throws MissingConfigurationKeyException
+     * @throws NotIntegerException
+     */
+    private function notFound(): Response
+    {
+        return ResponseBuilder::asError(ApiCode::SOMETHING_WENT_WRONG->value)
+            ->withMessage(Lang::get('api.not_found'))
+            ->withHttpCode(Response::HTTP_NOT_FOUND)
             ->build();
     }
 

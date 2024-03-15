@@ -44,7 +44,7 @@ class CreateEventAction extends ActionFactory
      */
     private function createEvent(User $creator, CreateEventDto $dto): Event
     {
-        if (! $prediction = $this->weatherService->prediction($dto)) {
+        if (! $prediction = $this->weatherService->prediction($dto->location, $dto->eventDate)) {
             throw new Exception('Something is wrong with weather service');
         }
 

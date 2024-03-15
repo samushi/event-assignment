@@ -2,7 +2,6 @@
 
 namespace App\Domain\Weather\Services;
 
-use App\Domain\Event\Dto\CreateEventDto;
 use App\Domain\Weather\API\WeatherApiService;
 use App\Domain\Weather\Dto\ForecastDayDto;
 use App\Domain\Weather\Dto\ForecastDaySpecificTimeForecastDto;
@@ -24,9 +23,9 @@ readonly class WeatherService
      * @throws ReflectionException
      * @throws Exception
      */
-    public function prediction(CreateEventDto $dto): array
+    public function prediction(string $location, string $eventDate): array
     {
-        $data = $this->getWeatherData($dto);
+        $data = $this->getWeatherData($location, Carbon::parse($eventDate));
 
         return ForecastDayDto::fromArray([
             'date' => $data['date'],
@@ -72,12 +71,10 @@ readonly class WeatherService
      *
      * @throws Exception
      */
-    private function getWeatherData(CreateEventDto $dto): array
+    private function getWeatherData(string $location, Carbon $eventDate): array
     {
-        $data = $dto->toArray();
-        $eventDate = Carbon::parse($data['event_date']);
         $predictionWeather = $this->apiService->history()->get(
-            city: $data['location'],
+            city: $location,
             date: $eventDate
         )->json();
 

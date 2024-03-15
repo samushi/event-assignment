@@ -3,11 +3,17 @@
 namespace App\Domain\Event\Controllers;
 
 use App\Domain\Event\Actions\CreateEventAction;
+use App\Domain\Event\Actions\DeleteEventAction;
 use App\Domain\Event\Actions\EventsBetweenDateAction;
+use App\Domain\Event\Actions\GetEventAction;
+use App\Domain\Event\Actions\UpdateEventAction;
 use App\Domain\Event\Dto\CreateEventDto;
 use App\Domain\Event\Dto\EventsBetweenDateDto;
+use App\Domain\Event\Dto\UpdateRequestEventDto;
+use App\Domain\Event\Models\Event;
 use App\Domain\Event\Requests\EventCreateRequest;
 use App\Domain\Event\Requests\GetEventsByDateRequest;
+use App\Domain\Event\Requests\UpdateEventRequest;
 use App\Support\ApiControllers;
 use Exception;
 use MarcinOrlowski\ResponseBuilder\Exceptions\ArrayWithMixedKeysException;
@@ -41,6 +47,60 @@ class EventController extends ApiControllers
     }
 
     /**
+     * Get event
+     *
+     * @throws ArrayWithMixedKeysException
+     * @throws ConfigurationNotFoundException
+     * @throws IncompatibleTypeException
+     * @throws InvalidTypeException
+     * @throws MissingConfigurationKeyException
+     * @throws NotIntegerException
+     * @throws Exception
+     */
+    public function get(Event $event): ?Response
+    {
+        return rescue(
+            fn () => $this->success(GetEventAction::run($event)),
+            $this->throwValidationException()
+        );
+    }
+
+    /**
+     * Delete Event
+     *
+     * @throws Exception
+     */
+    public function delete(Event $event): ?Response
+    {
+        return rescue(
+            fn () => $this->noContentClosure(fn () => DeleteEventAction::run($event)),
+            $this->throwValidationException()
+        );
+    }
+
+    /**
+     * Update Event
+     *
+     * @throws ArrayWithMixedKeysException
+     * @throws ConfigurationNotFoundException
+     * @throws IncompatibleTypeException
+     * @throws InvalidTypeException
+     * @throws MissingConfigurationKeyException
+     * @throws NotIntegerException
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    public function update(UpdateEventRequest $request, Event $event): ?Response
+    {
+        return rescue(
+            fn () => $this->success(
+                UpdateEventAction::run($event, UpdateRequestEventDto::fromRequest($request))
+            ),
+            $this->throwValidationException()
+        );
+    }
+
+    /**
      * Get all events for specific date interval
      *
      * @throws ArrayWithMixedKeysException
@@ -52,7 +112,7 @@ class EventController extends ApiControllers
      * @throws ReflectionException
      * @throws Exception
      */
-    public function getAllForDate(GetEventsByDateRequest $request): ?Response
+    public function getAllBetweenDate(GetEventsByDateRequest $request): ?Response
     {
         return rescue(
             fn () => $this->success(EventsBetweenDateAction::run(EventsBetweenDateDto::fromRequest($request))),

@@ -5,5 +5,11 @@ declare(strict_types=1);
 use App\Domain\Event\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
-Route::put('/create', [EventController::class, 'create'])->name('create');
-Route::post('/interval', [EventController::class, 'getAllForDate'])->name('interval');
+Route::post('/create', [EventController::class, 'create'])->name('create');
+Route::get('/interval', [EventController::class, 'getAllBetweenDate'])->name('interval');
+
+Route::prefix('{event}')->group(function () {
+    Route::get('/', [EventController::class, 'get'])->name('get');
+    Route::delete('/', [EventController::class, 'delete'])->name('delete');
+    Route::put('/', [EventController::class, 'update'])->name('update');
+})->whereUuid('event');
