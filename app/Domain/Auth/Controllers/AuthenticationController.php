@@ -13,7 +13,6 @@ use App\Domain\Auth\Requests\RegisterRequest;
 use App\Support\ApiControllers;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use MarcinOrlowski\ResponseBuilder\Exceptions\ArrayWithMixedKeysException;
 use MarcinOrlowski\ResponseBuilder\Exceptions\ConfigurationNotFoundException;
 use MarcinOrlowski\ResponseBuilder\Exceptions\IncompatibleTypeException;
@@ -21,7 +20,6 @@ use MarcinOrlowski\ResponseBuilder\Exceptions\InvalidTypeException;
 use MarcinOrlowski\ResponseBuilder\Exceptions\MissingConfigurationKeyException;
 use MarcinOrlowski\ResponseBuilder\Exceptions\NotIntegerException;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 final class AuthenticationController extends ApiControllers
 {
@@ -40,9 +38,7 @@ final class AuthenticationController extends ApiControllers
     {
         return rescue(
             fn () => $this->success(LoginAction::run($request->validated())),
-            fn (Throwable $throwable) => $throwable instanceof ValidationException ?
-                $this->unAuthorized($throwable->getMessage()) :
-                $this->errorWithMessage($throwable->getMessage())
+            $this->throwValidationException()
         );
     }
 
@@ -69,7 +65,7 @@ final class AuthenticationController extends ApiControllers
                         'last_name' => $user->last_name
                 ]));
             },
-            fn (Throwable $throwable) => $this->somethingWrong($throwable->getCode())
+            $this->throwValidationException()
         );
     }
 
@@ -88,7 +84,7 @@ final class AuthenticationController extends ApiControllers
     {
         return rescue(
             fn () => $this->successWithMessage(LogoutAction::run($request->user())),
-            fn (Throwable $throwable) => $this->somethingWrong($throwable->getCode())
+            $this->throwValidationException()
         );
     }
 }

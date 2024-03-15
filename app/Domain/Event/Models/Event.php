@@ -12,10 +12,13 @@ class Event extends ReadModel
      * Fillable attributes
      * @var string[]
      */
-    protected $fillable =[
-      'creator',
-      'event_date',
-      'location'
+    protected $fillable = [
+        'title',
+        'creator',
+        'event_date',
+        'location',
+        'description',
+        'weather_prediction'
     ];
 
     /**
@@ -23,14 +26,15 @@ class Event extends ReadModel
      * @var string[]
      */
     protected $casts = [
-        'event_date' => 'datetime',
-        'creator' => User::class
+        'event_date' => 'date:Y-m-d H:i',
+        'weather_prediction' => 'array'
     ];
+
     /**
      * Relationship to users (invitees)
      * @return BelongsToMany
      */
-    public function users(): BelongsToMany
+    public function invitees(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'event_user', 'event_id', 'user_id')->withTimestamps();
     }

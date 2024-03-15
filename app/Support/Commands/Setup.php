@@ -26,9 +26,6 @@ final class Setup extends Command
                 $this->call('passport:install', ['--force' => true]) :
                 $this->call('passport:install', ['--uuids' => true]);
 
-            // Seed database
-            $this->call('db:seed');
-
             $this->info('Successfully has been setup');
         } else {
             $this->warn('Setup has been canceled');
