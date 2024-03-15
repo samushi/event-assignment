@@ -18,8 +18,9 @@ abstract class DataObjects
 {
     /**
      * Get validated all data and initialize with props
-     * @param FormRequest $request
+     *
      * @return DataObjects
+     *
      * @throws ReflectionException
      */
     public static function fromRequest(FormRequest $request): static
@@ -29,8 +30,7 @@ abstract class DataObjects
 
     /**
      * Get from array list and initialize with props
-     * @param array $data
-     * @return static
+     *
      * @throws ReflectionException
      */
     public static function fromArray(array $data): static
@@ -40,8 +40,6 @@ abstract class DataObjects
 
     /**
      * From collection or list array
-     * @param array $data
-     * @return Collection
      */
     public static function fromList(array $data): Collection
     {
@@ -50,9 +48,6 @@ abstract class DataObjects
 
     /**
      * Transform array list
-     * @param array $data
-     * @param Closure|null $transform
-     * @return Collection
      */
     public static function fromListTransform(array $data, ?Closure $transform = null): Collection
     {
@@ -61,13 +56,6 @@ abstract class DataObjects
 
     /**
      * Paginate the collection into a simple paginator
-     * @param array $data
-     * @param Closure|null $transform
-     * @param int $perPage
-     * @param string $pageName
-     * @param int|null $page
-     * @param array $options
-     * @return Paginator
      */
     public static function paginate(array $data, ?Closure $transform = null, int $perPage = 15, string $pageName = 'page', ?int $page = null, array $options = []): Paginator
     {
@@ -88,7 +76,7 @@ abstract class DataObjects
         // Create simple options for paginator
         $options += [
             'path' => Paginator::resolveCurrentPath(),
-            'pageName' => $pageName
+            'pageName' => $pageName,
         ];
 
         return new Paginator($results, $perPage, $page, $options);
@@ -96,8 +84,6 @@ abstract class DataObjects
 
     /**
      * Make object to array
-     * @param array $excepts
-     * @return array
      */
     public function toArray(array $excepts = []): array
     {
@@ -106,8 +92,6 @@ abstract class DataObjects
 
     /**
      * Make Array to the Collections
-     * @param array $excepts
-     * @return Collection
      */
     public function toCollection(array $excepts = []): Collection
     {
@@ -116,8 +100,9 @@ abstract class DataObjects
 
     /**
      * Make instance from array list
-     * @param array $data
+     *
      * @return $this
+     *
      * @throws ReflectionException
      */
     private static function makeInstanceArgs(array $data): static
@@ -132,7 +117,6 @@ abstract class DataObjects
 
     /**
      * Get Reflection class
-     * @return ReflectionClass
      */
     private static function getReflectionClass(): ReflectionClass
     {
@@ -141,7 +125,6 @@ abstract class DataObjects
 
     /**
      * Get Reflection class
-     * @return ReflectionMethod
      */
     private static function getStaticContruction(): ReflectionMethod
     {
@@ -150,6 +133,7 @@ abstract class DataObjects
 
     /**
      * Get Class parameters
+     *
      * @return ReflectionParameter[]
      */
     private static function getClassProperties(): array
@@ -159,27 +143,24 @@ abstract class DataObjects
 
     /**
      * Convert all camel properties to the snake
-     * @return array
      */
     private function arrayKeysFromCamelToSnake(): array
     {
         $props = get_object_vars($this);
         $newKeys = array_map(fn ($key) => Str::snake($key), array_keys($props));
+
         return array_combine($newKeys, $props);
     }
 
     /**
      * Excepts from data
-     * @param array $excepts
-     * @param array $props
-     * @return array|null
      */
     private function excepts(array $excepts = [], array $props = []): ?array
     {
         foreach ($excepts as $except) {
             Arr::pull($props, $except);
         }
+
         return $props;
     }
-
 }

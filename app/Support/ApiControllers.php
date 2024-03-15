@@ -19,7 +19,6 @@ abstract class ApiControllers extends BaseController
 
     /**
      * Validation throw exception
-     * @return Closure
      */
     protected function throwValidationException(): Closure
     {

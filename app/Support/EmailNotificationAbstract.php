@@ -13,6 +13,7 @@ abstract class EmailNotificationAbstract extends Notification implements ShouldQ
 
     /**
      * Send via.
+     *
      * @return string[]
      */
     public function via(): array
@@ -22,7 +23,6 @@ abstract class EmailNotificationAbstract extends Notification implements ShouldQ
 
     /**
      * Sent email
-     * @return MailMessage
      */
     public function toMail(): MailMessage
     {
@@ -31,7 +31,6 @@ abstract class EmailNotificationAbstract extends Notification implements ShouldQ
 
     /**
      * Sent email template.
-     * @return MailMessage
      */
     abstract protected function template(): MailMessage;
 }

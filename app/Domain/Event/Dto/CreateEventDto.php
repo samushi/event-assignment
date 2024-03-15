@@ -12,7 +12,6 @@ class CreateEventDto extends DataObjects
         public readonly string $description,
         public readonly string $location,
         public readonly array $invitees
-    )
-    {
+    ) {
     }
 }

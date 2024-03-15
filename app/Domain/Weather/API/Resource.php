@@ -14,11 +14,9 @@ abstract class Resource
 
     /**
      * Make endpoint with prefix
-     * @param string|null $path
-     * @return string
      */
-    protected function endpoint(string $path = null) : string
+    protected function endpoint(?string $path = null): string
     {
-       return $path ? "$this->prefix/$path" : "$this->prefix";
+        return $path ? "$this->prefix/$path" : "$this->prefix";
     }
 }

@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
         Setup::class,
         CreateMigrationForDomain::class,
     ];
+
     /**
      * Define the application's command schedule.
      */

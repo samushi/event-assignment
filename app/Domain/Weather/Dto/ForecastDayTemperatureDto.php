@@ -10,7 +10,6 @@ class ForecastDayTemperatureDto extends DataObjects
         public readonly float $average,
         public readonly float $maximum,
         public readonly float $minimum
-    )
-    {
+    ) {
     }
 }

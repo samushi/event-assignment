@@ -15,6 +15,7 @@ final class LogoutAction extends ActionFactory
     {
         return DB::transaction(function () use ($args): string {
             $args->token()->revoke();
+
             return Lang::get('api.logout');
         });
     }

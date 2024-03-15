@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Domain\Weather\API;
 
 use App\Domain\Weather\API\Concerns\BuildBaseRequest;

@@ -10,6 +10,7 @@ class Event extends ReadModel
 {
     /**
      * Fillable attributes
+     *
      * @var string[]
      */
     protected $fillable = [
@@ -18,21 +19,21 @@ class Event extends ReadModel
         'event_date',
         'location',
         'description',
-        'weather_prediction'
+        'weather_prediction',
     ];
 
     /**
      * Casts attributes
+     *
      * @var string[]
      */
     protected $casts = [
         'event_date' => 'date:Y-m-d H:i',
-        'weather_prediction' => 'array'
+        'weather_prediction' => 'array',
     ];
 
     /**
      * Relationship to users (invitees)
-     * @return BelongsToMany
      */
     public function invitees(): BelongsToMany
     {

@@ -10,9 +10,6 @@ trait CanGetRequest
 {
     /**
      * Get Request from API
-     * @param string $url
-     * @param array|null $data
-     * @return Response
      */
     public function get(string $url, ?array $data = null): Response
     {

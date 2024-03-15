@@ -17,25 +17,19 @@ class EventRepository extends Repositories
 
     /**
      * Save event for creator
-     * @param User $creator
-     * @param CreateEventDto $dto
-     * @param array $prediction
-     * @return Event|Model
      */
     public function saveEvent(User $creator, CreateEventDto $dto, array $prediction): Event|Model
     {
         $event = $this->getModel()->fill([
             ...$dto->toArray(),
-            'weather_prediction' => $prediction
+            'weather_prediction' => $prediction,
         ]);
+
         return $creator->event()->save($event);
     }
 
     /**
      * Save Event invitees
-     * @param Event $event
-     * @param array $invitees
-     * @return void
      */
     public function saveEventInvitees(Event $event, array $invitees): void
     {
@@ -44,10 +38,6 @@ class EventRepository extends Repositories
 
     /**
      * Get all events between date/time interval
-     * @param string $start
-     * @param string $end
-     * @param int $perPage
-     * @return array
      */
     public function getEventsByInterval(string $start, string $end, int $perPage = 10): array
     {

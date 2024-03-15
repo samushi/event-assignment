@@ -22,6 +22,6 @@ return [
         'success' => 'Your email has been verified',
         'fail' => 'Invalid token',
         'done' => 'You already verified!',
-        'token' => 'Token has been send!'
+        'token' => 'Token has been send!',
     ],
 ];

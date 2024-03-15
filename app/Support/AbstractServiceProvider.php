@@ -10,17 +10,16 @@ abstract class AbstractServiceProvider extends ServiceProvider
 {
     /**
      * Set Domain name
-     * @return string
      */
     abstract public function setDomain(): string;
+
     /**
      * Service Provider when boot
-     * @return void
      */
     public function boot(): void
     {
         // Load all migration from current domain name
-        if($this->getDomain()) {
+        if ($this->getDomain()) {
             $migrationPath = base_path("app/Domain/{$this->getDomain()}/Migrations");
             $this->loadMigrationsFrom($migrationPath);
         }
@@ -28,7 +27,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Service Provider when register
-     * @return void
      */
     public function register(): void
     {
@@ -36,7 +34,6 @@ abstract class AbstractServiceProvider extends ServiceProvider
 
     /**
      * Get domain name
-     * @return string|null
      */
     private function getDomain(): ?string
     {

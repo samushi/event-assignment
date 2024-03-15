@@ -3,7 +3,6 @@
 namespace App\Domain\Event\Dto;
 
 use App\Support\DataObjects;
-use DateTime;
 
 class EventsBetweenDateDto extends DataObjects
 {
@@ -11,7 +10,6 @@ class EventsBetweenDateDto extends DataObjects
         public readonly string $start,
         public readonly string $end,
         public readonly ?int $perPage
-    )
-    {
+    ) {
     }
 }

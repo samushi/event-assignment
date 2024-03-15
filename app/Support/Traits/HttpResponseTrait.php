@@ -39,14 +39,14 @@ trait HttpResponseTrait
 
     /**
      * Response without data
-     * @param Closure $closure
-     * @return HttpResponse
+     *
      * @throws Exception
      */
     final protected function noContentClosure(Closure $closure): HttpResponse
     {
         try {
             $closure();
+
             return ResponseBuilder::asSuccess()->build();
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -113,7 +113,7 @@ trait HttpResponseTrait
      */
     final protected function somethingWrong(int $apiCode): HttpResponse
     {
-        $apiCode = 0 === $apiCode ? ApiCode::SOMETHING_WENT_WRONG->value : $apiCode;
+        $apiCode = $apiCode === 0 ? ApiCode::SOMETHING_WENT_WRONG->value : $apiCode;
 
         return $this->error($apiCode, HttpResponse::HTTP_BAD_REQUEST);
     }

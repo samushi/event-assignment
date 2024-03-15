@@ -13,8 +13,7 @@ class Invited extends EmailNotificationAbstract
     public function __construct(
         public readonly User $user,
         public readonly Event $event
-    )
-    {
+    ) {
     }
 
     protected function template(): MailMessage

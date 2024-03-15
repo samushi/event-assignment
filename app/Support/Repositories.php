@@ -14,8 +14,6 @@ abstract class Repositories
 
     /**
      * Eager loading
-     * @param array $array
-     * @return Builder
      */
     public function with(array $array = []): Builder
     {
@@ -24,6 +22,7 @@ abstract class Repositories
 
     /**
      * All columns list
+     *
      * @return Builder[]|Collection|Model
      */
     public function all(array $columns = ['*']): Model|Collection|array
@@ -33,8 +32,6 @@ abstract class Repositories
 
     /**
      * Create new model
-     * @param array $data
-     * @return Model
      */
     public function create(array $data): Model
     {
@@ -43,11 +40,6 @@ abstract class Repositories
 
     /**
      * Update the model
-     *
-     * @param array $data
-     * @param int $id
-     * @param string $attribute
-     * @return int
      */
     public function update(array $data, int $id, string $attribute = 'id'): int
     {
@@ -58,9 +50,6 @@ abstract class Repositories
 
     /**
      * Delete model
-     *
-     * @param string $id
-     * @return int
      */
     public function delete(string $id): int
     {
@@ -69,9 +58,6 @@ abstract class Repositories
 
     /**
      * Find by id
-     * @param $id
-     * @param array $columns
-     * @return Model|null
      */
     public function find($id, array $columns = ['*']): ?Model
     {
@@ -80,7 +66,6 @@ abstract class Repositories
 
     /**
      * Query builder
-     * @return Builder
      */
     protected function query(): Builder
     {

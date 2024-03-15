@@ -13,7 +13,6 @@ class ForecastDaySpecificTimeForecastDto extends DataObjects
         public readonly string $condition,
         public readonly float $chanceOfRain,
         public readonly float $visibility
-    )
-    {
+    ) {
     }
 }

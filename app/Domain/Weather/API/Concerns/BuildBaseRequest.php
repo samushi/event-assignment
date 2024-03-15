@@ -15,7 +15,6 @@ trait BuildBaseRequest
 {
     /**
      * Build request with token
-     * @return PendingRequest
      */
     public function buildRequestWithToken(): PendingRequest
     {
@@ -32,7 +31,6 @@ trait BuildBaseRequest
 
     /**
      * Initialize base url
-     * @return PendingRequest
      */
     public function withBaseUrl(): PendingRequest
     {
@@ -43,7 +41,6 @@ trait BuildBaseRequest
 
     /**
      * Get cache middleware
-     * @return CacheMiddleware
      */
     protected function getCacheMiddleware(): CacheMiddleware
     {

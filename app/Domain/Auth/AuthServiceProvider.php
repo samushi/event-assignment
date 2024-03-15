@@ -12,7 +12,6 @@ final class AuthServiceProvider extends AbstractServiceProvider
 {
     /**
      * Set domain name
-     * @return string
      */
     public function setDomain(): string
     {

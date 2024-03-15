@@ -19,42 +19,40 @@ class CreateEventAction extends ActionFactory
         private readonly UserRepository $userRepository,
         private readonly EventRepository $eventRepository,
         private readonly WeatherService $weatherService
-    ) {}
+    ) {
+    }
 
     protected function handle(User $creator, CreateEventDto $dto): string|Exception
     {
-        return DB::transaction(function() use ($creator, $dto){
+        return DB::transaction(function () use ($creator, $dto) {
             // Sent Event Invitees
             $event = $this->saveEventInvitees(
                 $this->createEvent($creator, $dto),
                 $dto
             );
 
-            return __("Event (:event) Created Successfully", [
-                'event' => optional($event)->title
+            return __('Event (:event) Created Successfully', [
+                'event' => optional($event)->title,
             ]);
         });
     }
 
     /**
      * Create Event
-     * @param User $creator
-     * @param CreateEventDto $dto
-     * @return Event
+     *
      * @throws Exception
      */
     private function createEvent(User $creator, CreateEventDto $dto): Event
     {
-        if(!$prediction = $this->weatherService->prediction($dto)) throw new Exception("Something is wrong with weather service");
+        if (! $prediction = $this->weatherService->prediction($dto)) {
+            throw new Exception('Something is wrong with weather service');
+        }
 
         return $this->eventRepository->saveEvent($creator, $dto, $prediction);
     }
 
     /**
      * Save Event Invitees
-     * @param Event $event
-     * @param CreateEventDto $dto
-     * @return Event
      */
     private function saveEventInvitees(Event $event, CreateEventDto $dto): Event
     {
@@ -68,7 +66,7 @@ class CreateEventAction extends ActionFactory
         $this->eventRepository->saveEventInvitees($event, $inviteesId);
 
         // Sent invitation emails to invitees
-        $event->invitees->each(fn($invitee) => $invitee->notify(new Invited($invitee, $event)));
+        $event->invitees->each(fn ($invitee) => $invitee->notify(new Invited($invitee, $event)));
 
         return $event;
     }

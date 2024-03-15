@@ -15,14 +15,12 @@ readonly class WeatherService
 {
     public function __construct(
         private WeatherApiService $apiService
-    )
-    {
+    ) {
     }
 
     /**
      * Get weather data
-     * @param CreateEventDto $dto
-     * @return array
+     *
      * @throws ReflectionException
      * @throws Exception
      */
@@ -34,14 +32,13 @@ readonly class WeatherService
             'date' => $data['date'],
             'weather_description' => $data['day']['condition']['text'],
             'temperature' => $this->getForecastDayTemperatureDto($data)->toArray(),
-            'specific_time_forecast' => $this->getForecastDaySpecificTimeForecastDto($data)->toArray()
+            'specific_time_forecast' => $this->getForecastDaySpecificTimeForecastDto($data)->toArray(),
         ])->toArray();
     }
 
     /**
      * Get forecast day specific time forecast dto
-     * @param array $data
-     * @return ForecastDaySpecificTimeForecastDto
+     *
      * @throws ReflectionException
      */
     private function getForecastDaySpecificTimeForecastDto(array $data): ForecastDaySpecificTimeForecastDto
@@ -52,14 +49,13 @@ readonly class WeatherService
             'feels_like' => $data['hour'][0]['feelslike_c'],
             'condition' => $data['hour'][0]['condition']['text'],
             'chance_of_rain' => $data['hour'][0]['chance_of_rain'],
-            'visibility' => $data['hour'][0]['vis_km']
+            'visibility' => $data['hour'][0]['vis_km'],
         ]);
     }
 
     /**
      *  Get forecast day temperature dto
-     * @param array $data
-     * @return ForecastDayTemperatureDto
+     *
      * @throws ReflectionException
      */
     private function getForecastDayTemperatureDto(array $data): ForecastDayTemperatureDto
@@ -67,14 +63,13 @@ readonly class WeatherService
         return ForecastDayTemperatureDto::fromArray([
             'average' => $data['day']['avgtemp_c'],
             'maximum' => $data['day']['maxtemp_c'],
-            'minimum' => $data['day']['mintemp_c']
+            'minimum' => $data['day']['mintemp_c'],
         ]);
     }
 
     /**
      * Set forecast data
-     * @param CreateEventDto $dto
-     * @return array
+     *
      * @throws Exception
      */
     private function getWeatherData(CreateEventDto $dto): array
@@ -86,11 +81,11 @@ readonly class WeatherService
             date: $eventDate
         )->json();
 
-        if(
-            !$predictionWeather ||
-            !array_key_exists('forecast', $predictionWeather)
-        ){
-            throw new Exception("Something wrong with weather service");
+        if (
+            ! $predictionWeather ||
+            ! array_key_exists('forecast', $predictionWeather)
+        ) {
+            throw new Exception('Something wrong with weather service');
         }
 
         return $predictionWeather['forecast']['forecastday'][0];

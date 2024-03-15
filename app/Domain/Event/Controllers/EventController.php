@@ -8,6 +8,7 @@ use App\Domain\Event\Dto\CreateEventDto;
 use App\Domain\Event\Dto\EventsBetweenDateDto;
 use App\Domain\Event\Requests\EventCreateRequest;
 use App\Domain\Event\Requests\GetEventsByDateRequest;
+use App\Support\ApiControllers;
 use Exception;
 use MarcinOrlowski\ResponseBuilder\Exceptions\ArrayWithMixedKeysException;
 use MarcinOrlowski\ResponseBuilder\Exceptions\ConfigurationNotFoundException;
@@ -17,14 +18,12 @@ use MarcinOrlowski\ResponseBuilder\Exceptions\MissingConfigurationKeyException;
 use MarcinOrlowski\ResponseBuilder\Exceptions\NotIntegerException;
 use ReflectionException;
 use Symfony\Component\HttpFoundation\Response;
-use App\Support\ApiControllers;
 
 class EventController extends ApiControllers
 {
     /**
      * Create Event
-     * @param EventCreateRequest $request
-     * @return Response|null
+     *
      * @throws ReflectionException
      * @throws Exception
      */
@@ -43,8 +42,7 @@ class EventController extends ApiControllers
 
     /**
      * Get all events for specific date interval
-     * @param GetEventsByDateRequest $request
-     * @return Response|null
+     *
      * @throws ArrayWithMixedKeysException
      * @throws ConfigurationNotFoundException
      * @throws IncompatibleTypeException

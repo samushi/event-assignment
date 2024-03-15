@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Auth\Controllers;
 
-
 use App\Domain\Auth\Actions\LoginAction;
 use App\Domain\Auth\Actions\LogoutAction;
 use App\Domain\Auth\Actions\RegisterAction;
@@ -59,11 +58,12 @@ final class AuthenticationController extends ApiControllers
         return rescue(
             function () use ($request) {
                 $user = RegisterAction::run($request->validated());
+
                 return $this->successWithMessage(
                     __('You have successfully registered, :first_name :last_name.', [
                         'first_name' => $user->first_name,
-                        'last_name' => $user->last_name
-                ]));
+                        'last_name' => $user->last_name,
+                    ]));
             },
             $this->throwValidationException()
         );

@@ -16,7 +16,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+    use HasApiTokens, HasFactory, HasUuids, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -32,7 +32,6 @@ class User extends Authenticatable
 
     /**
      * Factory Path
-     * @return UserFactory|Factory
      */
     protected static function newFactory(): Factory|UserFactory
     {
@@ -61,7 +60,6 @@ class User extends Authenticatable
 
     /**
      * Has many events.
-     * @return HasMany
      */
     public function event(): HasMany
     {
@@ -70,7 +68,6 @@ class User extends Authenticatable
 
     /**
      * Relationship to events.
-     * @return BelongsToMany
      */
     public function events(): BelongsToMany
     {

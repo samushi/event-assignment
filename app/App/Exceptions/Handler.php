@@ -34,7 +34,7 @@ class Handler extends ExceptionHandler
     ];
 
     protected $dontReport = [
-        OAuthServerException::class
+        OAuthServerException::class,
     ];
 
     /**

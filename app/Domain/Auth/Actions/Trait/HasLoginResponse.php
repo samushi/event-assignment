@@ -14,9 +14,6 @@ trait HasLoginResponse
 {
     /**
      * Response data
-     *
-     * @param Model|User $user
-     * @return array
      */
     private function responseToLogin(Model|User $user): array
     {

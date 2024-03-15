@@ -24,22 +24,20 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Register Domain Service Providers
-     * @return void
      */
     private function registerDomainServiceProviders(): void
     {
-        $domains = glob(base_path(). '/app/Domain/*', GLOB_ONLYDIR);
-        foreach($domains as $domain){
+        $domains = glob(base_path().'/app/Domain/*', GLOB_ONLYDIR);
+        foreach ($domains as $domain) {
             $provider = sprintf(
                 'App\Domain\%s\%sServiceProvider',
                 basename($domain),
                 basename($domain)
             );
 
-            if(class_exists($provider)){
+            if (class_exists($provider)) {
                 $this->app->register($provider);
             }
         }
     }
-
 }

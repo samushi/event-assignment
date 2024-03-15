@@ -11,7 +11,6 @@ class ForecastDayDto extends DataObjects
         public readonly string $weatherDescription,
         public readonly ForecastDayTemperatureDto|array $temperature,
         public readonly ForecastDaySpecificTimeForecastDto|array $specificTimeForecast
-    )
-    {
+    ) {
     }
 }

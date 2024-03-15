@@ -13,8 +13,6 @@ final class UserRepository extends Repositories
 {
     /**
      * Create User
-     * @param array $data
-     * @return User|Model
      */
     public function create(array $data): User|Model
     {
@@ -25,8 +23,6 @@ final class UserRepository extends Repositories
 
     /**
      * Find User By Email
-     * @param string $email
-     * @return User|null
      */
     public function findByEmail(string $email): ?User
     {
@@ -35,8 +31,6 @@ final class UserRepository extends Repositories
 
     /**
      * Find all Users By Email
-     * @param array $emails
-     * @return Collection|null
      */
     public function findAllByEmail(array $emails): ?Collection
     {
@@ -45,7 +39,6 @@ final class UserRepository extends Repositories
 
     /**
      * Get Model
-     * @return Model
      */
     protected function getModel(): Model
     {
