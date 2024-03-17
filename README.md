@@ -72,7 +72,7 @@ Once the setup is completed and the project is running, the database will contai
 
 For easy access to all endpoints via Postman, a Postman collection is available. You can access it by clicking on the following link:
 
-[Postman Collection](#)
+[Download Postman Collection](https://github.com/samushi/event-assignment/raw/main/postman_collection.json)
 
 ## Conclusion
 
