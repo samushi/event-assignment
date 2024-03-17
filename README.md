@@ -31,7 +31,10 @@ The following technologies are used out of the box with this setup:
     ```bash
    cd event-assignment
    ```
-
+   Copy env file from example
+   ```bash
+   cp .env.example .env
+    ```
    Install all the dependencies using composer
 
    ```bash
