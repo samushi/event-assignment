@@ -8,7 +8,6 @@ use App\Domain\Event\Dto\UpdateRequestEventDto;
 use App\Domain\Event\Models\Event;
 use App\Support\Repositories;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class EventRepository extends Repositories
@@ -20,11 +19,6 @@ class EventRepository extends Repositories
 
     /**
      * Get all events by location and group by location and order by event date
-     * @param string $start
-     * @param string $end
-     * @param string $orderBy
-     * @param int $perPage
-     * @return LengthAwarePaginator
      */
     public function groupByLocation(string $start, string $end, string $orderBy = 'event_date', int $perPage = 10): LengthAwarePaginator
     {
@@ -83,11 +77,10 @@ class EventRepository extends Repositories
     /**
      * Get all events between date/time interval
      */
-    public function getEventsByInterval(string $start, string $end, int $perPage = 10): array
+    public function getEventsByInterval(string $start, string $end, int $perPage = 10): LengthAwarePaginator
     {
-        return $this->query()->whereBetween('event_date', [$start, $end])
+        return $this->betweenDate($start, $end)
             ->orderBy('event_date')
-            ->paginate($perPage)
-            ->toArray();
+            ->paginate($perPage);
     }
 }

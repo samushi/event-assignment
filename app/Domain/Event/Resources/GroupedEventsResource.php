@@ -3,21 +3,19 @@
 namespace App\Domain\Event\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Collection;
 
 class GroupedEventsResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
         // Ensure handling of pagination correctly
         $groupedAndSorted = $this->groupAndSortEvents($this->collection);
+
         return [
             'data' => $groupedAndSorted,
             'links' => [
@@ -40,9 +38,6 @@ class GroupedEventsResource extends ResourceCollection
 
     /**
      * Group and sort events by location.
-     *
-     * @param Collection $events
-     * @return array
      */
     protected function groupAndSortEvents(Collection $events): array
     {
@@ -56,14 +51,11 @@ class GroupedEventsResource extends ResourceCollection
 
     /**
      * Format the events for a specific location.
-     *
-     * @param Collection $events
-     * @param string $location
-     * @return array
      */
     protected function formatEventsByLocation(Collection $events, string $location): array
     {
         $sortedEvents = $events->sortByDesc('event_date');
+
         return [
             'location' => $location,
             'events' => EventResource::collection($sortedEvents)->resolve(),

@@ -4,7 +4,10 @@ namespace App\Domain\Event\Actions;
 
 use App\Domain\Event\Dto\EventsBetweenDateDto;
 use App\Domain\Event\Repositories\EventRepository;
+use App\Domain\Event\Resources\EventsByIntervalDateResource;
 use App\Support\Actions\ActionFactory;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class EventsBetweenDateAction extends ActionFactory
 {
@@ -15,8 +18,18 @@ class EventsBetweenDateAction extends ActionFactory
 
     protected function handle(EventsBetweenDateDto $dto): array
     {
-        $perPage = $dto->perPage ?: 10;
+        return DB::transaction(
+            fn () => EventsByIntervalDateResource::make(
+                $this->getEvents($dto->start, $dto->end, $dto->perPage)
+            )->resolve()
+        );
+    }
 
-        return $this->repository->getEventsByInterval($dto->start, $dto->end, $perPage);
+    /**
+     * Get all events
+     */
+    private function getEvents(string $start, string $end, int $perPage): LengthAwarePaginator
+    {
+        return $this->repository->getEventsByInterval($start, $end, $perPage ?: 10);
     }
 }

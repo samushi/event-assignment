@@ -8,6 +8,7 @@ use App\Domain\Event\Models\Event;
 use App\Domain\Event\Notifications\Invited;
 use App\Domain\Event\Notifications\InvitedCanceled;
 use App\Domain\Event\Repositories\EventRepository;
+use App\Domain\Event\Resources\EventResource;
 use App\Domain\Weather\Services\WeatherService;
 use App\Support\Actions\ActionFactory;
 use Exception;
@@ -33,7 +34,7 @@ class UpdateEventAction extends ActionFactory
             );
 
             // Refresh event
-            return $event->refresh()->toArray();
+            return EventResource::make($event->refresh())->resolve();
         });
     }
 

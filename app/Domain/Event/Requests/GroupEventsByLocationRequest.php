@@ -6,7 +6,6 @@ use App\Support\FormRequest;
 
 class GroupEventsByLocationRequest extends FormRequest
 {
-
     public function rules(): array
     {
         return [

@@ -118,15 +118,16 @@ class EventController extends ApiControllers
     public function getAllBetweenDate(GetEventsByDateRequest $request): ?Response
     {
         return rescue(
-            fn () => $this->success(EventsBetweenDateAction::run(EventsBetweenDateDto::fromRequest($request))),
+            fn () => $this->success(
+                EventsBetweenDateAction::run(EventsBetweenDateDto::fromRequest($request))
+            ),
             $this->throwValidationException()
         );
     }
 
     /**
      * Get Events by data interval and show by locations
-     * @param GroupEventsByLocationRequest $request
-     * @return Response|null
+     *
      * @throws ArrayWithMixedKeysException
      * @throws ConfigurationNotFoundException
      * @throws IncompatibleTypeException
@@ -136,10 +137,10 @@ class EventController extends ApiControllers
      * @throws ReflectionException
      * @throws Exception
      */
-    public function getAllEventLocationsByDateInterval(GroupEventsByLocationRequest $request) :?Response
+    public function getAllEventLocationsByDateInterval(GroupEventsByLocationRequest $request): ?Response
     {
         return rescue(
-            fn() => $this->success(
+            fn () => $this->success(
                 GroupEventsByLocationAction::run(GroupEventsByLocationDto::fromRequest($request))
             ),
             $this->throwValidationException()

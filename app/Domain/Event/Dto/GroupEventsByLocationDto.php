@@ -11,7 +11,6 @@ class GroupEventsByLocationDto extends DataObjects
         public readonly string $end,
         public readonly ?int $page,
         public readonly ?int $perPage
-    )
-    {
+    ) {
     }
 }
