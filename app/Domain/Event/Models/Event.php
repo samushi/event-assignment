@@ -4,6 +4,8 @@ namespace App\Domain\Event\Models;
 
 use App\Domain\Auth\Models\User;
 use App\Support\ReadModel;
+use Database\Factories\EventFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Event extends ReadModel
@@ -21,6 +23,14 @@ class Event extends ReadModel
         'description',
         'weather_prediction',
     ];
+
+    /**
+     * Factory Path
+     */
+    protected static function newFactory(): EventFactory|Factory
+    {
+        return EventFactory::new();
+    }
 
     /**
      * Casts attributes
