@@ -1,0 +1,501 @@
+{
+	"info": {
+		"_postman_id": "f3f7d11c-4d4e-4a0c-a63d-44a8f0578004",
+		"name": "Calendar Events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "787799",
+		"_collection_link": "https://www.postman.com/laraplaceholder/workspace/eventassignments/collection/787799-f3f7d11c-4d4e-4a0c-a63d-44a8f0578004?action=share&source=collection_link&creator=787799"
+	},
+	"item": [
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New Event\",\n    \"event_date\": \"2024-05-10 15:00\",\n    \"location\": \"Paris\",\n    \"description\": \"This event is related with laravel developers\",\n    \"invitees\": [\"shannon99@example.com\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}event/create",
+							"host": [
+								"{{api_url}}event"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By Date",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"start\": \"2024-05-01\",\n    \"end\": \"2024-07-01\",\n    \"per_page\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}event/interval",
+							"host": [
+								"{{api_url}}event"
+							],
+							"path": [
+								"interval"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "By Location",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"start\": \"2024-05-01\",\n    \"end\": \"2024-06-02\",\n    \"per_page\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}event/location",
+							"host": [
+								"{{api_url}}event"
+							],
+							"path": [
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}event/9b925b05-804d-4bdc-b432-e27c76fb9e50",
+							"host": [
+								"{{api_url}}event"
+							],
+							"path": [
+								"9b925b05-804d-4bdc-b432-e27c76fb9e50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}event/9b91d42c-65c3-4307-8a47-fb6b819388e7",
+							"host": [
+								"{{api_url}}event"
+							],
+							"path": [
+								"9b91d42c-65c3-4307-8a47-fb6b819388e7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New Event Updated 2\",\n    // \"event_date\": \"2024-05-27 12:00\",\n    // \"location\": \"Pristina\",\n    // \"description\": \"This event is related with laravel developers\",\n    \"invitees\": [\"shawna.hills@example.net\", \"ali.zboncak@example.org\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_url}}event/9b910e60-98c7-4303-8ce0-d99aef36a252",
+							"host": [
+								"{{api_url}}event"
+							],
+							"path": [
+								"9b910e60-98c7-4303-8ce0-d99aef36a252"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_url}}auth/logout",
+							"host": [
+								"{{api_url}}auth"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{api_url}}ping",
+					"host": [
+						"{{api_url}}ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}auth/login",
+					"host": [
+						"{{api_url}}auth"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"{{first_name}}\",\n    \"last_name\": \"{{last_name}}\",\n    \"email\": \"{{email}}\",\n    \"password\": \"{{password}}\",\n    \"password_confirmation\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}auth/register",
+					"host": [
+						"{{api_url}}auth"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_url",
+			"value": "http://localhost/api/",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "samimaxhuni@example.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "Kosova123",
+			"type": "string"
+		},
+		{
+			"key": "first_name",
+			"value": "Sami",
+			"type": "string"
+		},
+		{
+			"key": "last_name",
+			"value": "Maxhuni",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5YjkwZTVmMi00YWE0LTRlZjMtOTk3Ny04NGY2Mjk1OGU4NWEiLCJqdGkiOiI3MTU2ZjA2MWU1NDYyN2Q5NTRiN2ZjM2I3MzcwM2Q2NzJiMjZkOGQyMjFkZTFiYzNiY2UwNjA1YTI1YmUxYjQwYzgwZWI3NzZjNWJlN2IxNCIsImlhdCI6MTcxMDQ3MzA3Ny42NzU1OCwibmJmIjoxNzEwNDczMDc3LjY3NTU4MywiZXhwIjoxNzI2MDI1MDc3LjY2NjAyMSwic3ViIjoiOWI5MGU1ZWItZGE3Zi00ODRjLWFmOWMtZTVjNGE4ZDBmNjJlIiwic2NvcGVzIjpbXX0.eUBGOZVYuArT1wcbc-kBKDu0IFm-JyXIcD4Zg85FfrSl_qbkteSl46LXFPhi_xsJbt2FGvaBuwVw0tgn27Bzg1a6PjrLdnIgmaf_yhsTy-U5LZ-vgtOzaCcsZhYJW0TL4mU5XyI0bSutIcDOOC96YyHsvFnpBzHuKf6uoyDu0q71aMnbOGAbpv0lU-Q6cMQ96SSYCkgEw-KW3G1nTv80kKDIkPPFZLgVjO1o1m0H1I-gCSbXoRaoNn9_4th_L74MBL78fAv_BlrF2RT_rC_w-VGn6u8jzBGVtl3KgGkRYMOl0FSvwJCcyK1CcTAvAkCLhxnqmUSi3mYCcedt8B_YviBY5vRm2MNz57EmuMjyG7MEP9v_jjUumNTwessS9dMyBLGWfXiTtIY6EeP_997iWBiHSTqdYCF9ZOs5WMqCH4MAOB95GY_Y3vZRh974k_ipQW4Y6okqiNnXTpN_BbMAtGMACG3CYH3JK1OtGxLoY5mVATs80PuJhk92l9A42LG2RAsuZSmv6Bxo9h2O0J-zzD-f0LeWSImyELYrSYIAVvnTzWCU6v2jFRIRW8SWLslpDuS9YjWBmyTM2z2bJy0s1Sz709KeKafFcIfvPWXZsAVx7OGMfvj3rumyglPrHUshkgttcOdJjFLF0SY5h3sd7f-ItpnuRqEU5CpLX6LipkU",
+			"type": "string"
+		}
+	]
+}
