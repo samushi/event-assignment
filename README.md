@@ -1,66 +1,191 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Project Setup Instructions
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project has been built with Laravel 10.47.0. To set up this project, you must first have Docker installed, as this project is run using Laravel Sail (Docker).
 
-## About Laravel
+### Prerequisites
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Before beginning the setup, ensure you have the following installed:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Docker
+- Composer (needed to install all packages with Composer)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Out-of-the-Box Setup
 
-## Learning Laravel
+The following technologies are used out of the box with this setup:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.3
+- MySQL 8.0
+- Redis
+- MailHog
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Installation Steps
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone & Install Dependencies**
+   Clone the repository
 
-## Laravel Sponsors
+    ```bash
+    git clone git@github.com:samushi/event-assignment.git
+    ```
+   Switch to the repo folder
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```bash
+   cd event-assignment
+   ```
 
-### Premium Partners
+   Install all the dependencies using composer
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+   ```bash
+   composer install 
+   ```
 
-## Contributing
+2. **Start the Project with Laravel Sail**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+   After installing the project with the above command, you can proceed to start Laravel Sail:
+    ```bash
+    ./vendor/bin/sail up -d
+    ```
+   To stop the server:
+    ```bash
+    ./vendor/bin/sail down
+   ```
+   Note: This command is used only the first time to set up the project.
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Database Migration and Seeding**
 
-## Security Vulnerabilities
+   Once the server starts with Laravel Sail, we need to migrate the database and seed the initial data:
+    ```bash 
+     ./vendor/bin/sail artisan assignment:setup 
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+You can now access the server at http://localhost:80 also to the api http://localhost:80/api/
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## After Setup
+
+Once the setup is completed and the project is running, the database will contain some fake users for testing purposes. Additionally, there is a static user that we can use to test the API:
+
+- **Email:** samimaxhuni@example.com
+- **Password:** Kosova123
+
+### Postman Collection
+
+For easy access to all endpoints via Postman, a Postman collection is available. You can access it by clicking on the following link:
+
+[Postman Collection](#)
+
+## Conclusion
+
+This README provides all the necessary steps to get your Laravel project up and running, including how to use Docker and Laravel Sail for the setup, how to install dependencies with Composer, and how to migrate and seed your database. With the static user provided, you can immediately start testing your API using the provided Postman collection.
+
+## Api Specification
+
+
+## API Reference
+
+Here, we are going to implement REST API with Passport authentication.
+
+### What is Passport?
+Laravel makes API authentication a breeze using Laravel Passport. APIs typically use tokens to authenticate users and do not maintain session state between requests. you can use passport for user authentication for api's.
+
+#### Register
+
+```http
+  POST /api/register
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `first_name` | `string` | **Required** |
+| `last_name` | `string` | **Required** |
+| `email` | `string` | **Required** email |
+| `password` | `string` | **Required** |
+| `password_confirmation` | `string` | **Required** need to be same with password|
+
+#### Login
+
+```http
+  POST /api/login
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `email` | `string` | **Required** |
+| `password` | `string` | **Required** |
+
+
+All endpoints in this API require Bearer token authorization except (login, register). To authorize, include your token in the Authorization header of each request as follows:
+
+#### Headers
+
+| Header | Value     |
+| :-------- | :------- | 
+| `Authorization` | `Bearer {api_key}` | 
+
+**Note:** Replace `{api_key}` with your actual API key.
+
+
+### Create Event
+
+```http
+    POST {{api_url}}event/create
+```
+
+| Parameter    | Type     | Description                       |
+|--------------|----------|-----------------------------------|
+| `title`      | `string` | **Required**. The title of the event |
+| `event_date` | `string` | **Required**. The date and time of the event (e.g., "2024-05-10 15:00") |
+| `location`   | `string` | **Required**. The location of the event |
+| `description`| `string` | **Required**. A description of the event |
+| `invitees`   | `array`  | **Required**. An array of invitee email addresses |
+
+### List events by date interval
+
+```http
+    GET {{api_url}}event/interval
+```
+| Parameter  | Type     | Description                         |
+|------------|----------|-------------------------------------|
+| `start`    | `string` | **Required**. Start date for the interval (e.g., "2024-05-01") |
+| `end`      | `string` | **Required**. End date for the interval (e.g., "2024-07-01") |
+| `per_page` | `number` | **Required**. Number of results per page |
+
+### List events grouped by location by date interval
+
+```http
+    GET {{api_url}}event/location
+```
+
+| Parameter  | Type     | Description                         |
+|------------|----------|-------------------------------------|
+| `start`    | `string` | **Required**. Start date for the interval (e.g., "2024-05-01") |
+| `end`      | `string` | **Required**. End date for the interval (e.g., "2024-07-01") |
+| `per_page` | `number` | **Required**. Number of results per page |
+
+### Get Event
+
+```http
+    GET {{api_url}}event/{event_id}
+```
+No body parameters required for this endpoint.
+
+### Delete Event
+
+```http
+    DELETE {{api_url}}event/{event_id}
+```
+No body parameters required for this endpoint.
+
+### Update Event
+
+```http
+    GET {{api_url}}event/{event_id}
+```
+
+| Parameter    | Type     | Description                      |
+|--------------|----------|----------------------------------|
+| `title`      | `string` | **Optional**. The title of the event |
+| `event_date` | `string` | **Optional**. The date and time of the event |
+| `location`   | `string` | **Optional**. The location of the event |
+| `description`| `string` | **Optional**. A description of the event |
+| `invitees`   | `array`  | **Optional**. An array of invitee email addresses |
