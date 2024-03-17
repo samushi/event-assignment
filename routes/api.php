@@ -22,7 +22,7 @@ Route::prefix('auth')
 Route::middleware(['auth:api'])->group(function (): void {
     Route::prefix('event')
         ->as('event:')
-        ->group(fn () => require_once app_path('../Domain/Event/api.php'));
+        ->group(fn () => require app_path('../Domain/Event/api.php'));
 });
 
 // Healthcheck routes

@@ -28,10 +28,15 @@ class UpdateEventAction extends ActionFactory
     {
         return DB::transaction(function () use ($event, $dto) {
             // Event Update
-            $event = $this->updateEventInvitees(
-                $this->updateEvent($event, $dto),
-                $dto
-            );
+            $event = $this->updateEvent($event, $dto);
+
+            // Update invites
+            if(!empty($dto->invitees)) {
+                $event = $this->updateEventInvitees(
+                    $event,
+                    $dto
+                );
+            }
 
             // Refresh event
             return EventResource::make($event->refresh())->resolve();
