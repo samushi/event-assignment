@@ -16,7 +16,7 @@ The following technologies are used out of the box with this setup:
 - PHP 8.3
 - MySQL 8.0
 - Redis
-- MailHog
+- MailPit
 
 ### Installation Steps
 
@@ -74,14 +74,25 @@ For easy access to all endpoints via Postman, a Postman collection is available.
 
 [Download Postman Collection](https://github.com/samushi/event-assignment/raw/main/postman_collection.json)
 
-## Conclusion
+### Accessing SMTP Testing Emails with MailPit
+To review the emails sent during testing, you can access the MailPit web interface via the following URL:
+```text
+http://localhost:8025
+```
+This interface allows you to view and debug all emails sent by the application during development and testing phases, ensuring that your email functionality works as expected.
 
-This README provides all the necessary steps to get your Laravel project up and running, including how to use Docker and Laravel Sail for the setup, how to install dependencies with Composer, and how to migrate and seed your database. With the static user provided, you can immediately start testing your API using the provided Postman collection.
+![Dashboard Screenshot](./MailPit.png "MailPit")
+
+### Accessing Laravel Horizon
+For monitoring and managing Laravel queues, Laravel Horizon can be accessed through the following URL:
+```text
+http://localhost:80/horizon
+```
+Laravel Horizon provides a beautiful dashboard for Laravel Redis queues, offering real-time insights into job processing, failures, and throughput.
 
 ## Api Specification
 
-
-## API Reference
+### API Reference
 
 Here, we are going to implement REST API with Passport authentication.
 
@@ -189,3 +200,8 @@ No body parameters required for this endpoint.
 | `location`   | `string` | **Optional**. The location of the event |
 | `description`| `string` | **Optional**. A description of the event |
 | `invitees`   | `array`  | **Optional**. An array of invitee email addresses |
+
+
+### Conclusion
+
+This README provides all the necessary steps to get your Laravel project up and running, including how to use Docker and Laravel Sail for the setup, how to install dependencies with Composer, and how to migrate and seed your database. With the static user provided, you can immediately start testing your API using the provided Postman collection.
