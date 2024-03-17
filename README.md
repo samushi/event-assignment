@@ -74,7 +74,38 @@ For easy access to all endpoints via Postman, a Postman collection is available.
 
 [Download Postman Collection](https://github.com/samushi/event-assignment/raw/main/postman_collection.json)
 
-### Accessing SMTP Testing Emails with MailPit
+## Application Architecture
+This application is built following the principles of Domain-Driven Design (DDD) and leverages clean, maintainable code practices to ensure robustness and scalability.
+
+### Project Structure Overview
+The project is organized into several key directories, as is typical with Laravel applications, including:
+- app/
+- bootstrap/
+- config/
+- Other standard Laravel directories
+
+However, the focus of this section is the `app/` directory, which is structured to adhere to DDD principles. Here's an overview of the DDD structure within the `app/` directory:
+```
+app/
+├── App/
+├── Domain/
+│   ├── Auth/
+│   ├── Event/
+│   └── Weather/
+└── Support/
+```
+### Directory Breakdown
+- App/: Contains Laravel-specific classes, including handlers, exceptions, and other framework essentials.
+- Domain/: This is where the core modules of the product are located, reflecting the business logic and capabilities of the application, such as authentication, events management, and weather services. The Domain directory is further divided into subdirectories, each representing a distinct domain or module within the application:
+  - `Auth/` for authentication mechanisms
+  - `Event/` for event management functionality
+  - `Weather/` for weather-related services
+- Support/: Houses auxiliary functionalities that support the application but do not fit within the core domains, such as utility classes and helpers.
+  This structure not only promotes a clean separation of concerns but also enhances the maintainability and scalability of the application by encapsulating business logic within clearly defined boundaries.
+
+This structure not only promotes a clean separation of concerns but also enhances the maintainability and scalability of the application by encapsulating business logic within clearly defined boundaries.
+
+## Accessing SMTP Testing Emails with MailPit
 To review the emails sent during testing, you can access the MailPit web interface via the following URL:
 ```text
 http://localhost:8025
@@ -83,7 +114,7 @@ This interface allows you to view and debug all emails sent by the application d
 
 ![Dashboard Screenshot](./MailPit.png "MailPit")
 
-### Accessing Laravel Horizon
+## Accessing Laravel Horizon
 For monitoring and managing Laravel queues, Laravel Horizon can be accessed through the following URL:
 ```text
 http://localhost:80/horizon
