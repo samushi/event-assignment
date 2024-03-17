@@ -6,13 +6,16 @@ use App\Domain\Event\Actions\CreateEventAction;
 use App\Domain\Event\Actions\DeleteEventAction;
 use App\Domain\Event\Actions\EventsBetweenDateAction;
 use App\Domain\Event\Actions\GetEventAction;
+use App\Domain\Event\Actions\GroupEventsByLocationAction;
 use App\Domain\Event\Actions\UpdateEventAction;
 use App\Domain\Event\Dto\CreateEventDto;
 use App\Domain\Event\Dto\EventsBetweenDateDto;
+use App\Domain\Event\Dto\GroupEventsByLocationDto;
 use App\Domain\Event\Dto\UpdateRequestEventDto;
 use App\Domain\Event\Models\Event;
 use App\Domain\Event\Requests\EventCreateRequest;
 use App\Domain\Event\Requests\GetEventsByDateRequest;
+use App\Domain\Event\Requests\GroupEventsByLocationRequest;
 use App\Domain\Event\Requests\UpdateEventRequest;
 use App\Support\ApiControllers;
 use Exception;
@@ -116,6 +119,29 @@ class EventController extends ApiControllers
     {
         return rescue(
             fn () => $this->success(EventsBetweenDateAction::run(EventsBetweenDateDto::fromRequest($request))),
+            $this->throwValidationException()
+        );
+    }
+
+    /**
+     * Get Events by data interval and show by locations
+     * @param GroupEventsByLocationRequest $request
+     * @return Response|null
+     * @throws ArrayWithMixedKeysException
+     * @throws ConfigurationNotFoundException
+     * @throws IncompatibleTypeException
+     * @throws InvalidTypeException
+     * @throws MissingConfigurationKeyException
+     * @throws NotIntegerException
+     * @throws ReflectionException
+     * @throws Exception
+     */
+    public function getAllEventLocationsByDateInterval(GroupEventsByLocationRequest $request) :?Response
+    {
+        return rescue(
+            fn() => $this->success(
+                GroupEventsByLocationAction::run(GroupEventsByLocationDto::fromRequest($request))
+            ),
             $this->throwValidationException()
         );
     }

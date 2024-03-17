@@ -21,6 +21,18 @@ abstract class Repositories
     }
 
     /**
+     * Where Between date
+     * @param string $start
+     * @param string $end
+     * @param string $column
+     * @return Builder
+     */
+    protected function betweenDate(string $start, string $end, string $column = 'event_date'): Builder
+    {
+        return $this->query()->whereBetween($column, [$start, $end]);
+    }
+
+    /**
      * All columns list
      *
      * @return Builder[]|Collection|Model
