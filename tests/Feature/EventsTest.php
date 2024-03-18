@@ -115,5 +115,3 @@ test('Get all events grouped by location', function(): void {
                 ->etc()
         );
 });
-
-

@@ -236,6 +236,15 @@ No body parameters required for this endpoint.
 | `invitees`   | `array`  | **Optional**. An array of invitee email addresses |
 
 
+### Testing
+For testing the application, Laravel Pest is utilized. Pest is a testing framework for PHP, built with a focus on simplicity and elegance. It provides an intuitive testing experience and is fully compatible with Laravel. Pest makes it easy to write expressive tests in PHP.
+
+To run your tests using Laravel Pest, use the following command:
+
+```Bash
+./vendor/bin/sail pest
+```
+This command runs all your Pest tests, providing you with detailed output on your test results. Pest supports a wide range of testing features, including unit tests, feature tests, and higher-level tests, making it a versatile tool for ensuring your application behaves as expected.
 ### Conclusion
 
 This README provides all the necessary steps to get your Laravel project up and running, including how to use Docker and Laravel Sail for the setup, how to install dependencies with Composer, and how to migrate and seed your database. With the static user provided, you can immediately start testing your API using the provided Postman collection.
