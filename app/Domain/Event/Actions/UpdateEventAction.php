@@ -31,7 +31,7 @@ class UpdateEventAction extends ActionFactory
             $event = $this->updateEvent($event, $dto);
 
             // Update invites
-            if(!empty($dto->invitees)) {
+            if (! empty($dto->invitees)) {
                 $event = $this->updateEventInvitees(
                     $event,
                     $dto

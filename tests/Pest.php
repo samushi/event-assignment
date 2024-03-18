@@ -16,11 +16,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Support\Facades\Artisan;
+
 use function Pest\Laravel\actingAs;
 
 uses(
     Tests\TestCase::class,
-     Illuminate\Foundation\Testing\RefreshDatabase::class,
+    Illuminate\Foundation\Testing\RefreshDatabase::class,
 )->in('Feature');
 
 beforeEach(function () {
@@ -54,14 +55,14 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-if(!function_exists('login')) {
+if (! function_exists('login')) {
     /**
      * Login User
-     * @return TestCase
      */
     function login(): TestCase
     {
         $user = User::factory()->create();
+
         return actingAs($user)
             ->withToken(
                 $user
@@ -71,13 +72,11 @@ if(!function_exists('login')) {
     }
 }
 
-if(!function_exists('loginAs')){
+if (! function_exists('loginAs')) {
     /**
      * Login as for test
-     * @param User|null $user
-     * @return User|Collection|Model
      */
-    function loginAs(User $user = null): Model|Collection|User
+    function loginAs(?User $user = null): Model|Collection|User
     {
         $user = $user ?? User::factory()->create();
         actingAs($user);
@@ -86,10 +85,9 @@ if(!function_exists('loginAs')){
     }
 }
 
-if(!function_exists('loginAsAnd')){
+if (! function_exists('loginAsAnd')) {
     /**
      * Login as for test
-     * @return TestCase
      */
     function loginAsAnd(): TestCase
     {

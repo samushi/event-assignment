@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use App\Domain\Auth\Models\User;
@@ -6,7 +7,7 @@ use App\Domain\Event\Models\Event;
 use Faker\Factory as Faker;
 use Illuminate\Testing\Fluent\AssertableJson;
 
-test('Create Event', function(): void {
+test('Create Event', function (): void {
     $faker = Faker::create();
 
     // Create fake emails
@@ -20,11 +21,11 @@ test('Create Event', function(): void {
         'event_date' => now()->addDays(14)->format('Y-m-d H:i'),
         'location' => $faker->country,
         'description' => $faker->text,
-        'invitees' => $emails
+        'invitees' => $emails,
     ])->assertOk();
 })->group('event');
 
-test('Get Event', function(): void{
+test('Get Event', function (): void {
     $event = Event::factory()->create();
     loginAsAnd()->getJson(route('event:get', ['event' => $event->id]))
         ->assertOk()
@@ -39,43 +40,42 @@ test('Get Event', function(): void{
         );
 });
 
-test('Delete Event', function(): void{
-   $event = Event::factory()->create();
-   loginAsAnd()->deleteJson(route('event:delete', ['event' => $event->id]))
-       ->assertOk();
+test('Delete Event', function (): void {
+    $event = Event::factory()->create();
+    loginAsAnd()->deleteJson(route('event:delete', ['event' => $event->id]))
+        ->assertOk();
 });
 
-test('Update Event', function(): void{
+test('Update Event', function (): void {
     $faker = Faker::create();
     $event = Event::factory()->create();
     $title = $faker->text;
 
-    loginAsAnd()->putJson(route('event:update', ['event'=> $event->id]),[
-      'title' => $title
+    loginAsAnd()->putJson(route('event:update', ['event' => $event->id]), [
+        'title' => $title,
     ])->assertOk()
-        ->assertJson(fn(AssertableJson $json) =>
-            $json->has('data.title')
-                ->where('data.title', $title)
-                ->etc()
+        ->assertJson(fn (AssertableJson $json) => $json->has('data.title')
+            ->where('data.title', $title)
+            ->etc()
         );
 });
 
-test('Get all events by interval date', function(): void {
+test('Get all events by interval date', function (): void {
     // Create events first
     Event::factory()->count(5)->create();
 
     // Create Query for parameters
     $parameters = http_build_query([
-        "start" => now()->format('Y-m-d'),
-        "end" => now()->addMonths(2)->format('Y-m-d'),
-        "per_page" => 10
+        'start' => now()->format('Y-m-d'),
+        'end' => now()->addMonths(2)->format('Y-m-d'),
+        'per_page' => 10,
     ]);
 
-    loginAsAnd()->getJson(route('event:interval'). '?'. $parameters)
+    loginAsAnd()->getJson(route('event:interval').'?'.$parameters)
         ->assertOk()
         ->assertJsonCount(5, 'data.events')
         ->assertJson(
-            fn(AssertableJson $json) => $json
+            fn (AssertableJson $json) => $json
                 ->has('data.events')
                 ->has('data.events.0',
                     fn (AssertableJson $json) => $json
@@ -91,21 +91,21 @@ test('Get all events by interval date', function(): void {
         );
 });
 
-test('Get all events grouped by location', function(): void {
-   Event::factory()->count(5)->create();
+test('Get all events grouped by location', function (): void {
+    Event::factory()->count(5)->create();
     $parameters = http_build_query([
-        "start" => now()->format('Y-m-d'),
-        "end" => now()->addMonths(2)->format('Y-m-d'),
-        "per_page" => 10
+        'start' => now()->format('Y-m-d'),
+        'end' => now()->addMonths(2)->format('Y-m-d'),
+        'per_page' => 10,
     ]);
 
-    loginAsAnd()->getJson(route('event:location'). '?'. $parameters)
+    loginAsAnd()->getJson(route('event:location').'?'.$parameters)
         ->assertOk()
         ->assertJson(
-            fn(AssertableJson $json) => $json
+            fn (AssertableJson $json) => $json
                 ->has('data.data')
                 ->has('data.data.0',
-                    fn(AssertableJson $json) => $json
+                    fn (AssertableJson $json) => $json
                         ->has('location')
                         ->has('events')
                         ->etc()
