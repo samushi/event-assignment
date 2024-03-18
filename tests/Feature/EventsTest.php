@@ -49,15 +49,26 @@ test('Update Event', function(): void{
     $faker = Faker::create();
     $event = Event::factory()->create();
     $title = $faker->text;
-    $response = loginAsAnd()->putJson(route('event:update', ['event'=> $event->id]),[
+
+    loginAsAnd()->putJson(route('event:update', ['event'=> $event->id]),[
       'title' => $title
-    ]);
-    $response->assertOk();
-    ray($response);
-//    $response->assertJson(fn(AssertableJson $json) =>
-//            $json->has('data.title')->etc()
-//        );
-//    ray($response);
+    ])->assertOk()
+        ->assertJson(fn(AssertableJson $json) =>
+            $json->has('data.title')
+                ->where('data.title', $title)
+                ->etc()
+        );
 });
+
+//test('Get all events by interval date', function(): void {
+//    $events = Event::factory()->count(5)->create();
+//
+//    $response = loginAsAnd()->getJson(route('event:interval'), [
+//        'start' => now()->format('Y-m-d'),
+//        'end' => now()->addMonths(2)->format('Y-m-d')
+//    ])->assertOk();
+//
+//    ray($response);
+//});
 
 
