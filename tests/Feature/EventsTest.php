@@ -60,15 +60,60 @@ test('Update Event', function(): void{
         );
 });
 
-//test('Get all events by interval date', function(): void {
-//    $events = Event::factory()->count(5)->create();
-//
-//    $response = loginAsAnd()->getJson(route('event:interval'), [
-//        'start' => now()->format('Y-m-d'),
-//        'end' => now()->addMonths(2)->format('Y-m-d')
-//    ])->assertOk();
-//
-//    ray($response);
-//});
+test('Get all events by interval date', function(): void {
+    // Create events first
+    Event::factory()->count(5)->create();
+
+    // Create Query for parameters
+    $parameters = http_build_query([
+        "start" => now()->format('Y-m-d'),
+        "end" => now()->addMonths(2)->format('Y-m-d'),
+        "per_page" => 10
+    ]);
+
+    loginAsAnd()->getJson(route('event:interval'). '?'. $parameters)
+        ->assertOk()
+        ->assertJsonCount(5, 'data.events')
+        ->assertJson(
+            fn(AssertableJson $json) => $json
+                ->has('data.events')
+                ->has('data.events.0',
+                    fn (AssertableJson $json) => $json
+                        ->has('id')
+                        ->has('title')
+                        ->has('description')
+                        ->has('event_date')
+                        ->has('weather_prediction')
+                )
+                ->has('data.links')
+                ->has('data.meta')
+                ->etc()
+        );
+});
+
+test('Get all events grouped by location', function(): void {
+   Event::factory()->count(5)->create();
+    $parameters = http_build_query([
+        "start" => now()->format('Y-m-d'),
+        "end" => now()->addMonths(2)->format('Y-m-d'),
+        "per_page" => 10
+    ]);
+
+    loginAsAnd()->getJson(route('event:location'). '?'. $parameters)
+        ->assertOk()
+        ->assertJson(
+            fn(AssertableJson $json) => $json
+                ->has('data.data')
+                ->has('data.data.0',
+                    fn(AssertableJson $json) => $json
+                        ->has('location')
+                        ->has('events')
+                        ->etc()
+                )
+                ->has('data.links')
+                ->has('data.meta')
+                ->etc()
+        );
+});
 
 
